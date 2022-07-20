@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import demoLogo from '../images/logo.svg';
-import LoadingPage from './utils/LoadingPage';
+import LoadingPage from '../components/utils/LoadingPage';
 import { login } from '../redux/api';
 import Cookies from 'js-cookie';
 
@@ -25,11 +25,11 @@ const LoginPage = () => {
   const handleLogin = async () => {
     if (formData.email && formData.password) {
       setLoading(true);
-      try {
-        const { data } = await login(formData);
-        setLoading(false);
-        Cookies.set('fanstarAdmin', data);
-        history.push('/Universities');
+       try {
+      //   const { data } = await login(formData);
+      //   setLoading(false);
+      //   Cookies.set('fanstarAdmin', data);
+        history.push('/property');
       } catch (error) {
         console.log(error);
         setLoading(false);
@@ -48,8 +48,8 @@ const LoginPage = () => {
         <div className='loginPage-formDiv'>
           <div className='loginPage-formHeaderDiv'>
             <div className='logoContainer'>
-              <img src={demoLogo} alt='logo' className='logoImage' />
-              <span className='brandName'>Flywise </span>
+              {/* <img src={demoLogo} alt='logo' className='logoImage' /> */}
+              <span className='brandName'>Aspire </span>
             </div>
             <div className='loginPage-headerContent'>
               <h3 className='loginPage-headerTitle'>Log In to Dashboard </h3>
@@ -58,6 +58,7 @@ const LoginPage = () => {
               </p>
             </div>
           </div>
+
           <div className='loginPage-formContent'>
             <div className='loginPage-formFieldDiv'>
               <label className='loginPage-inputLabel'>Email</label>
@@ -70,6 +71,7 @@ const LoginPage = () => {
                 onChange={handleChange}
               />
             </div>
+          
             <div className='loginPage-formFieldDiv'>
               <div className='loginPage-passDiv'>
                 <label className='loginPage-inputLabel'>Password</label>
@@ -77,6 +79,7 @@ const LoginPage = () => {
                   Forgot password?
                 </label>
               </div>
+          
               <input
                 type='password'
                 name='password'

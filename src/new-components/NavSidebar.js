@@ -27,7 +27,9 @@ import userActive from '../images/userActive.svg';
 import payment from '../images/payment.svg';
 import paymentActive from '../images/paymentActive.svg';
 import useStyles from '../styles/NavSidebar';
-
+import LocationCityIcon from '@mui/icons-material/LocationCity';
+import ArticleIcon from '@mui/icons-material/Article';
+import WorkIcon from '@mui/icons-material/Work';
 const drawerWidth = 240;
 
 const AppBar = styled(MuiAppBar, {
@@ -146,7 +148,7 @@ const NavSidebar = (props) => {
             }}
           >
             <div className={classes.navHeader}>
-              <h3>Flywise</h3>
+              <h3>Aspire</h3>
             </div>
             <IconButton onClick={toggleDrawer}>
               <ChevronLeftIcon className={classes.closeDrawer} />
@@ -158,28 +160,20 @@ const NavSidebar = (props) => {
             <ListItem
               button
               className={
-                props.location.pathname.includes('/Universities')
+                props.location.pathname.includes('/property')
                   ? classes.selectedList
                   : ''
               }
-              onClick={() => history.push('/Universities')}
+              onClick={() => history.push('/property')}
             >
               <ListItemIcon>
-                {props.location.pathname.includes('/Universities') ? (
-                  <img
-                    src={artistActive}
-                    className={classes.iconColor}
-                    alt='Universities'
-                  />
+                {props.location.pathname.includes('/property') ? (
+                  <LocationCityIcon style={{color:"white",fontSize:"1.8rem"}}/>
                 ) : (
-                  <img
-                    src={artist}
-                    className={classes.iconColor}
-                    alt='Universities'
-                  />
+                  <LocationCityIcon style={{color:"white",fontSize:"1.8rem"}}/>
                 )}
               </ListItemIcon>
-              <ListItemText primary='Universities' />
+              <ListItemText primary='Property' />
             </ListItem>
             <ListItem
               button
@@ -192,17 +186,10 @@ const NavSidebar = (props) => {
             >
               <ListItemIcon>
                 {props.location.pathname.includes('/blogs') ? (
-                  <img
-                    src={employeeActive}
-                    className={classes.iconColor}
-                    alt='employee'
-                  />
+                  <ArticleIcon style={{color:"white",fontSize:"1.8rem"}}/>
+
                 ) : (
-                  <img
-                    src={employee}
-                    className={classes.iconColor}
-                    alt='employee'
-                  />
+                  <ArticleIcon style={{color:"white",fontSize:"1.8rem"}}/>
                 )}
               </ListItemIcon>
               <ListItemText primary='Blogs' />
@@ -210,51 +197,23 @@ const NavSidebar = (props) => {
             <ListItem
               button
               className={
-                props.location.pathname.includes('/users')
+                props.location.pathname.includes('/career')
                   ? classes.selectedList
                   : ''
               }
-              onClick={() => history.push('/users')}
+              onClick={() => history.push('/career')}
             >
               <ListItemIcon>
-                {props.location.pathname.includes('/users') ? (
-                  <img
-                    src={userActive}
-                    className={classes.iconColor}
-                    alt='users'
-                  />
+                {props.location.pathname.includes('/career') ? (
+                  <WorkIcon style={{color:"white",fontSize:"1.8rem"}}/>
+
                 ) : (
-                  <img src={user} className={classes.iconColor} alt='users' />
+                  <WorkIcon style={{color:"white",fontSize:"1.8rem"}}/>
                 )}
               </ListItemIcon>
-              <ListItemText primary='Users' />
+              <ListItemText primary='Career' />
             </ListItem>
-            {/* <ListItem
-              button
-              className={
-                props.location.pathname.includes('/payments')
-                  ? classes.selectedList
-                  : ''
-              }
-              onClick={() => history.push('/payments')}
-            >
-              <ListItemIcon>
-                {props.location.pathname.includes('/payments') ? (
-                  <img
-                    src={paymentActive}
-                    className={classes.iconColor}
-                    alt='payments'
-                  />
-                ) : (
-                  <img
-                    src={payment}
-                    className={classes.iconColor}
-                    alt='payments'
-                  />
-                )}
-              </ListItemIcon>
-              <ListItemText primary='Payments ' />
-            </ListItem> */}
+
           </List>
         </Drawer>
         <Box
