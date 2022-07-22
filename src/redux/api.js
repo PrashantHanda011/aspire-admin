@@ -3,12 +3,18 @@ import Cookies from 'js-cookie';
 
 // for live server
 const API = axios.create({
-  baseURL: '',
+  baseURL: 'https://aspire0.herokuapp.com/',
 });
 
-// https://fanstar-kylo.herokuapp.com/
-// https://fanstar-backend-uiwtg.ondigitalocean.app/
+// Blogs
+export const getAllBlogs = () => API.get('/blog/getAllBlog');
+export const addBlog = (data) => API.post('/blog/addBlog', data);
+export const deleteBlog = (blogid) =>
+  API.post('blog/deleteBlog', { id: blogid });
+export const updateBlog = (blogid, updateddata) =>
+  API.post('blog/updateBlog', { id: blogid, ...updateddata });
 
+//
 API.interceptors.request.use((req) => {
   if (Cookies.get('fanstarAdmin')) {
     req.headers['authorization'] = `Bearer ${Cookies.get('fanstarAdmin')}`;

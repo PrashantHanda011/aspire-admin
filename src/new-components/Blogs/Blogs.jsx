@@ -1,86 +1,87 @@
-import React,{useEffect,useState} from 'react'
-import LoadingPage from '../utils/LoadingPage';
-import '../../styles/ArtistPage.css';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import LoadingPage from '../utils/LoadingPage';
 import addIcon from '../../images/addIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
-import Btable from './Btable';
+import '../../styles/newstyles/blogs.css';
+import Btable from './AllBlogs/Btable';
+import { getAllBlogs } from '../../redux/api';
 
-function Blogs() {
-    const [loading, setLoading] = useState(false);
-    const [searchInput, setsearchInput] = useState('');
+const Blogs = () => {
+  const history = useHistory();
+  const [allblogData, setallblogData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [searchInput, setsearchInput] = useState('');
+  const [filterData, setfilterData] = useState([]);
 
-  const history= useHistory();
+  const fetchblogList = async () => {
+    setLoading(true);
+    try {
+      const res = await getAllBlogs();
+      setallblogData(res.data.data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    fetchblogList();
+  }, []);
 
+  // const searchItems = (searchValue) => {
+  //   setsearchInput(searchValue);
+  //   if (searchInput !== '') {
+  //     let filteredData = allblogData.filter((item) => {
+  //       return Object.values(item)
+  //         .join('')
+  //         .toLowerCase()
+  //         .includes(searchValue.toLowerCase());
+  //     });
+  //     setfilterData(filteredData);
+  //   } else {
+  //     setfilterData(allblogData);
+  //   }
+  // };
 
-
-  //api call
-  const unicall =async()=>{
-      setLoading(true);
-     
-      try {
-
-        setLoading(false);
-      } catch (error) {
-        setLoading(false);
-          console.log(error);
-        }
-      }
-
-          // searchIcon
-
-          
-const searchItems = (searchValue) => {
-  setsearchInput(searchValue)
-  // if(searchInput !== ''){
-  //   let filteredData =  universityData.filter((item) => {  
-  //   return Object.values(item).join('').toLowerCase().includes(searchValue.toLowerCase())
-  //   })
-  //   setfilterData(filteredData)
-  // }else{
-  //   setfilterData(universityData)
-  // }
-}
-
-
-    return (
-    <>
-         <div className='artist-container'>
+  return (
+    <div className="blogs-container">
       {loading ? (
         <LoadingPage />
       ) : (
         <>
-          <div className='artist-firstSection'>
-            <div className='artist-searchDiv'>
-              <img src={searchIcon} alt='search' className='searchIcon' />
+          <div className="blogs-firstSection">
+            <div className="blogs-searchDiv">
+              <img src={searchIcon} alt="search" className="searchIcon" />
               <input
-                type='text'
-                placeholder='Ex. Harvard University'
-                className='artist-searchInput'
-                id='searchInput'
-                value={searchInput}
-                onChange={(e)=>searchItems(e.target.value)}
+                type="text"
+                placeholder="Enter a Name , Title and Author etc"
+                className="blogs-searchInput"
+                id="searchInput"
+                // value={searchInput}
+                // onChange={(e) => searchItems(e.target.value)}
               />
             </div>
-            <div className='artist-addArtistDiv'>
+            <div className="blogs-addblogsDiv">
               <button
-                className='artist-addBtn'
-                onClick={() => history.push('/universities/add')}
+                className="blogs-addBtn"
+                onClick={() => history.push('/blog/add')}
               >
-                <img src={addIcon} alt='add' className='artist-addIcon' />
-                <span>Add University</span>
+                <img src={addIcon} alt="add" className="blogs-addIcon" />
+                <span>Add Blogs</span>
               </button>
             </div>
-        </div>
-          <div className='artist-tableSection'>
-            <Btable/>
+          </div>
+          <div className="blogs-tableSection">
+            {searchInput.length > 1 ? (
+              <Btable blogData={filterData} />
+            ) : (
+              <Btable blogData={allblogData} />
+            )}
           </div>
         </>
       )}
-    </div>  
-    </>
-  )
-}
-
-export default Blogs
+    </div>
+  );
+};
+export default Blogs;
