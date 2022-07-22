@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import '../../styles/newstyles/addBlogForm.css';
 import { useHistory } from 'react-router-dom';
 import { addBlog } from '../../redux/api';
-
+import { storage } from '../../firebase';
+import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 const AddBlogForm = () => {
   const isFirstRender = useRef(true);
   const [spinn, setspinn] = useState(false);
@@ -37,9 +38,24 @@ const AddBlogForm = () => {
     setblogData({ ...blogData, timeToRead: event.target.value + 'min' });
   };
 
-  const handleFileInputchange = (name) => (event) => {
-    // setblogData({ ...blogData, [name]: event.target.files[0] });
-    setblogData({ ...blogData, [name]: 'https://asd' });
+  const handleFileInputchange = (name) => async (e) => {
+    e.preventDefault();
+    const file = e.target.files[0];
+    if (!file) return;
+    const storageRef = ref(storage, `${name}/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => {},
+      (error) => {
+        alert(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          setblogData({ ...blogData, [name]: url });
+        });
+      }
+    );
   };
 
   const handlerValidatedFormSubmit = async () => {
@@ -61,12 +77,12 @@ const AddBlogForm = () => {
     e.preventDefault();
     const updatedError = {
       title: blogData.title === '' ? true : false,
-      picture: !blogData.picture ? true : false,
+      picture: blogData.picture === '' ? true : false,
       authorName: blogData.authorName === '' ? true : false,
-      authorPicture: !blogData.authorPicture ? true : false,
+      authorPicture: blogData.authorPicture === '' ? true : false,
       category: blogData.category === '' ? true : false,
       timeToRead: blogData.timeToRead === '' ? true : false,
-      tags: blogData.tags == '' ? true : false, //later change to tags array
+      tags: blogData.tags === '' ? true : false, //later change to tags array
       content: blogData.content === '' ? true : false,
     };
     setError(updatedError);
@@ -160,7 +176,6 @@ const AddBlogForm = () => {
               />
             </div>
           </div>
-
           {/* 3rd row */}
 
           <div className="addblog-alignRow">
