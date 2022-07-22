@@ -9,10 +9,13 @@ const Btable = ({ blogData }) => {
       <table className="fl-table">
         <thead>
           <tr>
+            <th>ID</th>
             <th>Author</th>
             <th>Date</th>
-            <th>Minutes</th>
+            <th>Read Time</th>
             <th>Title</th>
+            <th>Category</th>
+            <th style={{ textAlign: 'center' }}>Blog Picture</th>
             <th style={{ textAlign: 'center' }}>Action</th>
           </tr>
         </thead>
@@ -22,6 +25,7 @@ const Btable = ({ blogData }) => {
               return (
                 <BtableRow
                   key={index}
+                  index={index}
                   blog={blog}
                   allblogs={allblogs}
                   setallblogs={setallblogs}
