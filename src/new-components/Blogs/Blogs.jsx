@@ -29,20 +29,20 @@ const Blogs = () => {
     fetchblogList();
   }, []);
 
-  // const searchItems = (searchValue) => {
-  //   setsearchInput(searchValue);
-  //   if (searchInput !== '') {
-  //     let filteredData = allblogData.filter((item) => {
-  //       return Object.values(item)
-  //         .join('')
-  //         .toLowerCase()
-  //         .includes(searchValue.toLowerCase());
-  //     });
-  //     setfilterData(filteredData);
-  //   } else {
-  //     setfilterData(allblogData);
-  //   }
-  // };
+  const searchItems = (searchValue) => {
+    setsearchInput(searchValue);
+    if (searchValue !== '') {
+      let filteredData = allblogData.filter((item) => {
+        return Object.values(item)
+          .join('')
+          .toLowerCase()
+          .includes(searchValue.toLowerCase());
+      });
+      setfilterData(filteredData);
+    } else {
+      setfilterData(allblogData);
+    }
+  };
 
   return (
     <div className="blogs-container">
@@ -55,11 +55,11 @@ const Blogs = () => {
               <img src={searchIcon} alt="search" className="searchIcon" />
               <input
                 type="text"
-                placeholder="Enter a Name , Title and Author etc"
+                placeholder="Enter a Title , Author or Category"
                 className="blogs-searchInput"
                 id="searchInput"
-                // value={searchInput}
-                // onChange={(e) => searchItems(e.target.value)}
+                value={searchInput}
+                onChange={(e) => searchItems(e.target.value)}
               />
             </div>
             <div className="blogs-addblogsDiv">
@@ -73,7 +73,7 @@ const Blogs = () => {
             </div>
           </div>
           <div className="blogs-tableSection">
-            {searchInput.length > 1 ? (
+            {searchInput.length ? (
               <Btable blogData={filterData} />
             ) : (
               <Btable blogData={allblogData} />

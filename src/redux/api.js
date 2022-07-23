@@ -11,8 +11,9 @@ export const getAllBlogs = () => API.get('/blog/getAllBlog');
 export const addBlog = (data) => API.post('/blog/addBlog', data);
 export const deleteBlog = (blogid) =>
   API.post('blog/deleteBlog', { id: blogid });
-export const updateBlog = (blogid, updateddata) =>
-  API.post('blog/updateBlog', { id: blogid, ...updateddata });
+export const getblog = (blogid) =>
+  API.post('/blog/getBlogById', { id: blogid });
+export const updateBlog = (data) => API.post('/blog/updateBlog', data);
 
 //
 API.interceptors.request.use((req) => {

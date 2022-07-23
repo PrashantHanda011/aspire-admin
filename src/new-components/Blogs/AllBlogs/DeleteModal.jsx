@@ -20,10 +20,10 @@ const DeleteModal = ({ show, handleConfirm, handleCancel }) => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="success" onClick={handleCancel}>
-            Close
+            Cancel
           </Button>
           <Button variant="danger" onClick={handleConfirm}>
-            Save Changes
+            Confirm
           </Button>
         </Modal.Footer>
       </Modal>

@@ -91,19 +91,20 @@ const AddBlogForm = () => {
     if (isFirstRender.current) {
       isFirstRender.current = false;
       return;
-    }
-    if (
-      !error.title &&
-      !error.picture &&
-      !error.authorName &&
-      !error.authorPicture &&
-      !error.category &&
-      !error.timeToRead &&
-      !error.tags &&
-      !error.content
-    ) {
-      setspinn(true);
-      handlerValidatedFormSubmit();
+    } else {
+      if (
+        !error.title &&
+        !error.picture &&
+        !error.authorName &&
+        !error.authorPicture &&
+        !error.category &&
+        !error.timeToRead &&
+        !error.tags &&
+        !error.content
+      ) {
+        setspinn(true);
+        handlerValidatedFormSubmit();
+      }
     }
   }, [error]);
 
@@ -208,7 +209,7 @@ const AddBlogForm = () => {
           {/* 4th row */}
           <div className="addblog-alignRow">
             {/* Tags */}
-            <div className="addblog-inputFieldDiv">
+            <div className="addblog-textFieldDiv">
               <label className="addblog-inputLabel">Tags</label>
               <input
                 className="addblog-inputField"

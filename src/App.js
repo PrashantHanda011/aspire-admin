@@ -28,6 +28,7 @@ import Blogs from './new-components/Blogs/Blogs';
 import AddBlogForm from './new-components/Blogs/AddBlogForm';
 import FeaturedProject from './new-components/FeaturedProjects/FeaturedProject';
 import TrendingLoans from './new-components/TrendingLoans/TrendingLoans';
+import EditBlogForm from './new-components/Blogs/EditBlogForm';
 
 export const history = createHistory();
 const App = () => {
@@ -40,6 +41,7 @@ const App = () => {
           <Route path="/career" exact component={Career} />
           <Route path="/blogs" exact component={Blogs} />
           <Route path="/blog/add" exact component={AddBlogForm} />
+          <Route path="/blog/edit/:id/" component={EditBlogForm} />
           <Route path="/featuredprojects" exact component={FeaturedProject} />
           <Route path="/trendingloans" exact component={TrendingLoans} />
         </NavSidebar>

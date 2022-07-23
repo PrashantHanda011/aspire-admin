@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import BtableRow from './BtableRow';
 import '../../../styles/newstyles/addBlogTable.css';
 
 const Btable = ({ blogData }) => {
+  useEffect(() => {
+    setallblogs(blogData);
+  }, [blogData]);
+
   const [allblogs, setallblogs] = useState(blogData);
   return (
     <div className="table-wrapper" id="#scrollBar">
